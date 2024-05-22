@@ -4,8 +4,8 @@
     <div class="col-md-12" style="text-align:left">
       <div *ngFor="let quiz of quizList  ">
         Ques.) {{quiz.quesName}}
-        <ul style="list-style:decimal">
-          <li *ngFor="let each of quiz.options"> {{each.optionName}}</li>
+        <ul style="list-style:lower-alpha">
+          <li *ngFor="let each of quiz.options"><input type="checkbox" /> {{each.optionName}}</li>
         </ul>
       </div>
     </div>

@@ -1,12 +1,45 @@
+<style>
+  .numbers {
+    width: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #078252;
+    color: white;
+  }
+</style>
 <div class="container">
+  <h2 class="alert alert-danger">Mock Test App</h2>
   <div class="row">
+    <div class="col-md-9" style="text-align:left">
+      <div class="card">
+        <div class="card-header bg-dark shadow-lg text-white">
+          Reasoning
+        </div>
+        <div class="card-body">
+          <div *ngFor="let quiz of quizList;let i = index;  ">
+            Ques.{{i+1}}.) {{quiz.quesName}}
+            <ul style="list-style:lower-alpha">
+              <li *ngFor="let opt of quiz.options"><input type="radio" /> {{opt.optionName}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-    <div class="col-md-12" style="text-align:left">
-      <div *ngFor="let quiz of quizList  ">
-        Ques.) {{quiz.quesName}}
-        <ul style="list-style:lower-alpha">
-          <li *ngFor="let each of quiz.options"><input type="checkbox" /> {{each.optionName}}</li>
-        </ul>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header bg-warning shadow-lg ">
+          Question No
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3 mx-1 numbers" *ngFor="let quiz of quizList;let i = index;  ">
+              {{i+1}}
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>

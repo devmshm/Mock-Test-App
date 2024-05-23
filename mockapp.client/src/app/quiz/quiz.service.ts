@@ -7,18 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class QuizService {
   url = 'https://localhost:7044/api/quiz/';
-  //url = configurl.apiServer.url + '/api/product/';
   constructor(private http: HttpClient) { }
   getquiz(): Observable<quizdata[]> {
     return this.http.get<quizdata[]>(this.url + 'getquiz');
   }
-
 }
 export class quizdata {
-
   quesName?: any;
   optionName?: any;
   quesId?: any;
-
-
 }

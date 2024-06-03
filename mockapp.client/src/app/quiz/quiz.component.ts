@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService, quizdata } from './quiz.service';
 import { Router } from '@angular/router';
 import { Observable, catchError, findIndex, of, throttleTime } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-quiz',
@@ -16,7 +17,7 @@ export class QuizComponent implements OnInit {
   currentIndex: number = 0;
   selectedValue: string = '';
   constructor(
-    private quizservices: QuizService, private router: Router) {
+    private quizservices: QuizService, private router: Router, http: HttpClient) {
   }
   ngOnInit() {
     this.getquiz();
@@ -69,16 +70,36 @@ export class QuizComponent implements OnInit {
   selectItem(questionId: number, selectedItem: string): void {
     if (!this.quizList1.includes(selectedItem)) {
       this.quizList1.push(selectedItem);
-    } 
+    }
   }
-  response: { questionId: number, selectedOption: string }[] = [];
+  response: { quesId: number, optionID: string }[] = [];
   saveSelectedItems(): void {
-    this.response = []; 
+    this.response = [];
     this.quizList.forEach(question => {
       if (question.selectedOption, question.quesId) {
-        this.response.push({ questionId: question.quesId, selectedOption: question.selectedOption });
+        this.response.push({ quesId: question.quesId, optionID: question.selectedOption });
       }
     });
-    console.log(this.response); 
+
+    const res = this.response;
+    this.quizservices.postresponse(res).subscribe(() => {
+      alert('Data Saved Successfully..!!');
+    });
+    console.log(this.response);
   }
+  PostData() {
+    
+   
+  }
+  //postSelections() {
+  //  const apiUrl = 'https://your-api-endpoint.com/submit-quiz';
+  //  this.http.post(apiUrl, this.response).subscribe(
+  //    response => {
+  //      console.log('Success:', response);
+  //    },
+  //    error => {
+  //      console.error('Error:', error);
+  //    }
+  //  );
+  //}
 }

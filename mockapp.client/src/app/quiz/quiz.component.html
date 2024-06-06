@@ -52,9 +52,9 @@
         </div>
         <div class="card-footer">
           <div class="navigator-container">
-            <button class="btn btn-success" (click)="prevItem()" [disabled]="currentIndex === 0">Previous</button>
+            <button class="btn btn-danger" (click)="prevItem()" [disabled]="currentIndex === 0">Previous</button>
             <button class="btn btn-success" (click)="nextItem()" [disabled]="currentIndex === quizList.length - 1">Next</button>
-            <button class="btn btn-success" (click)="saveSelectedItems()" [disabled]="currentIndex === quizList.length">Submit</button>
+            <button class="btn btn-info" (click)="saveSelectedItems()" [disabled]="currentIndex === quizList.length">Submit</button>
           </div>
         </div>
       </div>

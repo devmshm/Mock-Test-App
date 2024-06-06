@@ -61,10 +61,7 @@ export class QuizComponent implements OnInit {
     }
   }
   selectedItems: string[] = new Array(this.quizList.length).fill(null);
-
-  // Method to update the selected item
   onSelectionChange(listIndex: number, selectedItem: string) {
-
     this.selectedItems[listIndex] = selectedItem;
   }
   selectItem(questionId: number, selectedItem: string): void {
@@ -77,19 +74,17 @@ export class QuizComponent implements OnInit {
     this.response = [];
     this.quizList.forEach(question => {
       if (question.selectedOption, question.quesId) {
-        this.response.push({ quesId: question.quesId, optionID: question.selectedOption });
+        this.response.push({
+          quesId: question.quesId,
+          optionID: question.selectedOption
+        });
       }
     });
-
     const res = this.response;
     this.quizservices.postresponse(res).subscribe(() => {
-      alert('Data Saved Successfully..!!');
+      alert('Response Saved Successfully..!!');
     });
     console.log(this.response);
-  }
-  PostData() {
-    
-   
   }
   //postSelections() {
   //  const apiUrl = 'https://your-api-endpoint.com/submit-quiz';

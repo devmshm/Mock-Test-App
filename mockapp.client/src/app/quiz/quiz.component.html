@@ -12,8 +12,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin: 20px;
+    /* gap: 10px;
+    margin: 20px;*/
   }
 
   button:disabled {
@@ -21,57 +21,80 @@
     cursor: not-allowed;
   }
 </style>
+<!--<div *ngIf="notAuthenticated()"  style="color:red;">
+  <h2 style="vertical-align:middle;text-align:center">Invalid User...!!</h2>
+  </div>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+  <div class="container-fluid">
+    <div class="pull pull-right col-md-12">
+      <button style="float:right"
+              class="pull pull-right fa-sign-out  btn btn-danger my-2 my-sm-0"
+              type="submit" (click)="logOut()">
+        Logout
+      </button>
+    </div>
+  </div>
+</nav>
 <div class="container">
-  <h2 class="alert alert-danger">Mock Test App</h2>
-  <div class="row">
-    <div class="col-md-9" style="text-align:left">
-      <div class="card">
-        <div class="card-header bg-dark shadow-lg text-white">
-          Reasoning
-        </div>
-        <div class="card-body">
-          <div class="navigation-container">
-            <div class="list-display" *ngIf="quizItem">
-              <p>{{quizItem.quesName }}</p>
-              <ul style="list-style:lower-alpha">
-                <li *ngFor="let subitem of quizItem.options;let O = index;">
-                  <input type="radio"
-                         [name]="'quizItem' + O" [value]="subitem.optionName"
+  <h2 class="alert alert-info mt-1 text-center">Mock Test App</h2>
+  <div class="card">
 
-                         (change)="onSelectionChange(O, subitem)"
-                         [checked]="selectedItems[O] === subitem"
-                         [(ngModel)]="quizItem.selectedOption"
-                         (click)="selectItem(quizItem.quesId,subitem.optionID)" />
-                  {{ subitem.optionName }}
-                </li>
-                <!--[name]="'radioGroup' + currentIndex"
-                (change)="onRadioChange(subitem.optionName)" -->
-              </ul>
+    <div class="card card-body">
+      <div class="container " *ngIf="isUserAuthenticated()">
+
+
+        <div class="row">
+          <div class="col-md-9" style="text-align:left">
+            <div class="card">
+              <div class="card-header bg-dark shadow-lg text-white">
+                Reasoning
+              </div>
+              <div class="card-body">
+                <div class="navigation-container">
+                  <div class="list-display" *ngIf="quizItem">
+                    <p>{{quizItem.quesName }}</p>
+                    <ul style="list-style:lower-alpha">
+                      <li *ngFor="let subitem of quizItem.options;let O = index;">
+                        <input type="radio"
+                               [name]="'quizItem' + O" [value]="subitem.optionName"
+                               (change)="onSelectionChange(O, subitem)"
+                               [checked]="selectedItems[O] === subitem"
+                               [(ngModel)]="quizItem.selectedOption"
+                               (click)="selectItem(quizItem.quesId,subitem.optionID)" />
+                        {{ subitem.optionName }}
+                      </li>
+                      <!--[name]="'radioGroup' + currentIndex"
+                      (change)="onRadioChange(subitem.optionName)" -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="navigator-container">
+                  <button class="btn btn-danger mx-1" (click)="prevItem()" [disabled]="currentIndex === 0">Previous</button>
+                  <button class="btn btn-success mx-1" (click)="nextItem()" [disabled]="currentIndex === quizList.length - 1">Next</button>
+                  <button class="btn btn-info mx-1" (click)="saveSelectedItems()" [disabled]="currentIndex === quizList.length">Submit</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <div class="navigator-container">
-            <button class="btn btn-danger" (click)="prevItem()" [disabled]="currentIndex === 0">Previous</button>
-            <button class="btn btn-success" (click)="nextItem()" [disabled]="currentIndex === quizList.length - 1">Next</button>
-            <button class="btn btn-info" (click)="saveSelectedItems()" [disabled]="currentIndex === quizList.length">Submit</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-header bg-warning shadow-lg ">
-          Question No
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-2 mx-1 mt-1" *ngFor="let quiz of quizList;let i = index;">
-              <div class="btn btn-success" style="border-radius: 50%;" (click)="qid(quiz.quesId)">{{i+1}}</div>
+          <div class="col-md-3">
+            <div class="card">
+              <div class="card-header bg-warning shadow-lg ">
+                Question No
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-2 mx-1 mt-1" *ngFor="let quiz of quizList;let i = index;">
+                    <div class="btn btn-success" style="border-radius: 50%;" (click)="qid(quiz.quesId)">{{i+1}}</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </div>

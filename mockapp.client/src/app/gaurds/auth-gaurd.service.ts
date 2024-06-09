@@ -8,6 +8,7 @@ export class AuthGuard {
   constructor(private jwtHelper: JwtHelperService, private router: Router) {
   }
   canActivate() {
+    debugger
     const token = localStorage.getItem("jwt");
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       return true;

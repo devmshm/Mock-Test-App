@@ -3,6 +3,7 @@ import { QuizService, quizdata } from './quiz.service';
 import { Router } from '@angular/router';
 import { Observable, catchError, findIndex, of, throttleTime } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-quiz',
@@ -17,12 +18,28 @@ export class QuizComponent implements OnInit {
   currentIndex: number = 0;
   selectedValue: string = '';
   constructor(
-    private quizservices: QuizService, private router: Router, http: HttpClient) {
+    private quizservices: QuizService, private router: Router, http: HttpClient, private jwtHelper:JwtHelperService) {
   }
   ngOnInit() {
     this.getquiz();
   }
-
+ 
+    
+  
+  isUserAuthenticated() {    
+    const token = localStorage.getItem("jwt");
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      return true;
+    }
+    else {
+      this.router.navigate(["/login"]);
+      return false;
+    }
+  }
+  logOut = () => {
+    localStorage.removeItem("jwt");
+    this.router.navigate(["/"]);
+  }
   getquiz() {
     this.quizservices.getquiz().pipe(
       throttleTime(2000),
@@ -36,8 +53,7 @@ export class QuizComponent implements OnInit {
   }
 
   onRadioChange(optionID: any) {
-    this.selectedValue = optionID.value;
-    console.log('Selected Item:', optionID);
+    this.selectedValue = optionID.value;    
   }
   get quizItem() {
     return this.quizList[this.currentIndex];
